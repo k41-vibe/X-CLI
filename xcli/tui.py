@@ -175,7 +175,7 @@ def tr(key: str, *args) -> str:
 class LogoScreen(ModalScreen):
     """起動スプラッシュ。数秒 or キー入力で消える。"""
 
-    BINDINGS = [("escape,enter,space", "skip", "スキップ")]
+    BINDINGS = [("escape,enter,space", "skip", "Skip")]
 
     def compose(self) -> ComposeResult:
         with Vertical(id="logo-box"):
@@ -287,7 +287,7 @@ class DMMsgItem(ListItem):
 
 # ---- モーダル ----------------------------------------------------------
 class ComposeModal(ModalScreen):
-    BINDINGS = [("escape", "cancel", "キャンセル"), ("ctrl+s", "submit", "送信")]
+    BINDINGS = [("escape", "cancel", "Cancel"), ("ctrl+s", "submit", "Send")]
 
     def __init__(self, title: str = "投稿", prefill: str = ""):
         super().__init__()
@@ -321,7 +321,7 @@ class ComposeModal(ModalScreen):
 class MediaModal(ModalScreen):
     """ツイートのメディアURL一覧と、画像のインラインプレビュー。"""
 
-    BINDINGS = [("escape", "close", "閉じる")]
+    BINDINGS = [("escape", "close", "Close")]
 
     def __init__(self, tweet: dict):
         super().__init__()
@@ -373,7 +373,7 @@ class MediaModal(ModalScreen):
 class ConfirmModal(ModalScreen[bool]):
     """削除などの確認。はい=True / いいえ=False を返す。"""
 
-    BINDINGS = [("escape", "cancel", "キャンセル")]
+    BINDINGS = [("escape", "cancel", "Cancel")]
 
     def __init__(self, message: str):
         super().__init__()
@@ -398,7 +398,7 @@ class ConfirmModal(ModalScreen[bool]):
 class HandleModal(ModalScreen):
     """開くプロフィールのハンドルを入力。"""
 
-    BINDINGS = [("escape", "cancel", "キャンセル")]
+    BINDINGS = [("escape", "cancel", "Cancel")]
 
     def compose(self) -> ComposeResult:
         with Vertical(id="compose-box"):
@@ -571,7 +571,7 @@ class TweetActions:
 
 # ---- プロフィール画面 --------------------------------------------------
 class ProfileScreen(TweetActions, Screen):
-    BINDINGS = [("escape", "app.pop_screen", "戻る")]
+    BINDINGS = [("escape", "app.pop_screen", "Back")]
 
     def __init__(self, handle: str, is_self: bool):
         super().__init__()
@@ -713,7 +713,7 @@ class ProfileScreen(TweetActions, Screen):
 
 # ---- 会話スレッド画面 --------------------------------------------------
 class ConversationScreen(TweetActions, Screen):
-    BINDINGS = [("escape", "app.pop_screen", "戻る")]
+    BINDINGS = [("escape", "app.pop_screen", "Back")]
 
     def __init__(self, tweet_id: str):
         super().__init__()
@@ -795,8 +795,8 @@ class XcliApp(TweetActions, App):
     """
 
     BINDINGS = [
-        ("q", "quit", "終了"),
-        ("f5", "refresh", "更新"),
+        ("q", "quit", "Quit"),
+        ("f5", "refresh", "Refresh"),
     ]
 
     def __init__(self):
