@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# 資格情報・ローカル設定(通常は ~/.xcli にあるが、XCLI_HOME をリポジトリに向けた場合の保険)
+.xcli/
+config.json
+endpoints.json
+
+# ダウンロードしたメディア等
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.mp4
