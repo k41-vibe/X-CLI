@@ -401,6 +401,69 @@ def _resolve_user_id(client: XClient, target: str) -> tuple[str, str]:
     return uid, handle
 
 
+def _relation_cmd(args, method, verb: str) -> int:
+    client = XClient()
+    uid, label = _resolve_user_id(client, args.target)
+    data = method(client, uid)
+    if data.get("id") or data.get("id_str"):
+        print(f"{verb}: @{label}")
+        return 0
+    print(f"{verb} 失敗:")
+    print(json.dumps(data, ensure_ascii=False, indent=2)[:400])
+    return 1
+
+
+def cmd_mute(args) -> int:
+    return _relation_cmd(args, lambda c, u: c.mute(u), "ミュートしました")
+
+
+def cmd_unmute(args) -> int:
+    return _relation_cmd(args, lambda c, u: c.unmute(u), "ミュート解除しました")
+
+
+def cmd_block(args) -> int:
+    return _relation_cmd(args, lambda c, u: c.block(u), "ブロックしました")
+
+
+def cmd_unblock(args) -> int:
+    return _relation_cmd(args, lambda c, u: c.unblock(u), "ブロック解除しました")
+
+
+def cmd_quote(args) -> int:
+    client = XClient()
+    # 引用元の著者ハンドルを取得して正規のURLを組む
+    data = client.tweet(args.tweet_id)
+    result = _unwrap_tweet(
+        data.get("data", {}).get("tweetResult", {}).get("result", {})
+    )
+    handle = _author(result)[1] or "i/web"
+    url = f"https://x.com/{handle}/status/{args.tweet_id}"
+    d = client.create_tweet(args.text, attachment_url=url)
+    tid = _created_tweet_id(d)
+    if tid:
+        print(f"引用投稿しました: https://x.com/i/status/{tid}  (id={tid})")
+        return 0
+    print("投稿応答を解釈できませんでした:")
+    print(json.dumps(d, ensure_ascii=False, indent=2)[:600])
+    return 1
+
+
+def cmd_conversation(args) -> int:
+    client = XClient()
+    data = client.tweet_detail(args.tweet_id)
+    tweets = extract_tweets(data)[: args.count]
+    if getattr(args, "json", False):
+        _dump_json(tweets)
+        return 0
+    _print_tweets(tweets)
+    return 0
+
+
+def cmd_whoami(args) -> int:
+    print("@" + XClient().whoami())
+    return 0
+
+
 def cmd_follow(args) -> int:
     client = XClient()
     uid, label = _resolve_user_id(client, args.target)

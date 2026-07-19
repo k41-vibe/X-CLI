@@ -51,6 +51,11 @@ xcli bookmark <id> / xcli unbookmark <id>  # ブックマーク / 解除
 
 xcli follow <handle|id>    # フォロー(鍵垢はリクエスト送信)
 xcli unfollow <handle|id>  # フォロー解除
+xcli mute <handle|id>      / xcli unmute <handle|id>    # ミュート / 解除
+xcli block <handle|id>     / xcli unblock <handle|id>   # ブロック / 解除
+xcli quote <id> "本文"      # 引用して投稿
+xcli conversation <id>     # 会話・リプライツリー表示(replies でも可)
+xcli whoami                # 認証中の自分のハンドル
 
 xcli search "クエリ" --tab latest -n 20   # 検索
 #   --tab: top(人気) latest(最新) people(アカウント) media(メディア) lists(リスト)

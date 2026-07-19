@@ -50,13 +50,31 @@ def build_parser() -> argparse.ArgumentParser:
         sm.add_argument("tweet_id", help="対象ツイートID")
         sm.set_defaults(func=func)
 
-    sf = sub.add_parser("follow", help="フォロー(鍵垢はリクエスト送信)")
-    sf.add_argument("target", help="ハンドル(@なし)または user_id")
-    sf.set_defaults(func=commands.cmd_follow)
+    for name, help_text, func in [
+        ("follow", "フォロー(鍵垢はリクエスト送信)", commands.cmd_follow),
+        ("unfollow", "フォロー解除", commands.cmd_unfollow),
+        ("mute", "ミュート", commands.cmd_mute),
+        ("unmute", "ミュート解除", commands.cmd_unmute),
+        ("block", "ブロック", commands.cmd_block),
+        ("unblock", "ブロック解除", commands.cmd_unblock),
+    ]:
+        sr = sub.add_parser(name, help=help_text)
+        sr.add_argument("target", help="ハンドル(@なし)または user_id")
+        sr.set_defaults(func=func)
 
-    suf = sub.add_parser("unfollow", help="フォロー解除")
-    suf.add_argument("target", help="ハンドル(@なし)または user_id")
-    suf.set_defaults(func=commands.cmd_unfollow)
+    sq = sub.add_parser("quote", help="引用して投稿")
+    sq.add_argument("tweet_id", help="引用元ツイートID")
+    sq.add_argument("text", help="本文")
+    sq.set_defaults(func=commands.cmd_quote)
+
+    sconv = sub.add_parser("conversation", aliases=["replies"], help="会話・リプライツリーを表示")
+    sconv.add_argument("tweet_id", help="ツイートID")
+    sconv.add_argument("-n", "--count", type=int, default=30, help="取得件数")
+    _add_json(sconv)
+    sconv.set_defaults(func=commands.cmd_conversation)
+
+    swho = sub.add_parser("whoami", help="認証中の自分のハンドルを表示")
+    swho.set_defaults(func=commands.cmd_whoami)
 
     su = sub.add_parser("user", help="ユーザー情報(+任意でツイート)を取得")
     su.add_argument("handle", help="スクリーンネーム(@なし)")
