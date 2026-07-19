@@ -160,6 +160,8 @@ def build_parser() -> argparse.ArgumentParser:
     ssearch.set_defaults(func=commands.cmd_search)
 
     stui = sub.add_parser("tui", help="ターミナルUIを起動")
+    stui.add_argument("--lang", choices=["ja", "en"], default="ja", help="UI言語(既定 ja)")
+    stui.add_argument("--en", action="store_true", help="英語UIで起動(--lang en の別名)")
     stui.set_defaults(func=commands.cmd_tui)
 
     ss = sub.add_parser("sync", help="公開JSから queryId を再取得してキャッシュ")

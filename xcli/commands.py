@@ -870,7 +870,8 @@ def cmd_search(args) -> int:
 def cmd_tui(args) -> int:
     from . import tui
 
-    return tui.run()
+    lang = "en" if getattr(args, "en", False) else getattr(args, "lang", "ja")
+    return tui.run(lang)
 
 
 def cmd_sync(args) -> int:

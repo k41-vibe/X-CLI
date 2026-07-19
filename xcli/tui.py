@@ -53,6 +53,125 @@ LOGO = """
 """
 
 
+# ---- 多言語(i18n)-----------------------------------------------------
+_LANG = "ja"
+
+STRINGS: dict[str, tuple[str, str]] = {
+    # ボタン
+    "b_like": ("♥ いいね", "♥ Like"),
+    "b_rt": ("RT", "RT"),
+    "b_bookmark": ("★ ブクマ", "★ Bookmark"),
+    "b_reply": ("↩ 返信", "↩ Reply"),
+    "b_quote": ("❞ 引用", "❞ Quote"),
+    "b_thread": ("💬 会話", "💬 Thread"),
+    "b_quoted": ("❝ 引用元", "❝ Quoted"),
+    "b_media": ("画像/動画", "Media"),
+    "b_delete": ("🗑 削除", "🗑 Delete"),
+    # タブ
+    "tab_following": ("フォロー中", "Following"),
+    "tab_foryou": ("おすすめ", "For you"),
+    "tab_search": ("検索", "Search"),
+    "tab_notif": ("通知", "Notifications"),
+    "tab_dm": ("DM", "DM"),
+    "tab_tweets": ("ツイート", "Tweets"),
+    "tab_likes": ("いいね", "Likes"),
+    "tab_bm": ("ブクマ", "Bookmarks"),
+    # 上部バー・入力欄
+    "my_profile": ("自分のプロフィール", "My profile"),
+    "compose_ph": ("いまどうしてる?  (Enter で投稿)", "What's happening?  (Enter to post)"),
+    "search_ph": ("検索クエリ (Enter)", "Search query (Enter)"),
+    "from_ph": ("from: ユーザー(@なし)", "from: user (no @)"),
+    "minfav_ph": ("最低いいね数", "min likes"),
+    "search_btn": ("検索", "Search"),
+    "dm_msg_ph": ("メッセージ (Enter で送信)", "Message (Enter to send)"),
+    "opt_latest": ("最新", "Latest"),
+    "opt_top": ("人気", "Top"),
+    "opt_people": ("アカウント", "People"),
+    "opt_media": ("メディア", "Media"),
+    "opt_lists": ("リスト", "Lists"),
+    # モーダル
+    "m_send": ("送信 (Ctrl+S)", "Send (Ctrl+S)"),
+    "m_cancel": ("キャンセル", "Cancel"),
+    "m_post": ("投稿", "Post"),
+    "m_reply_to": ("@{0} へ返信", "Reply to @{0}"),
+    "m_quote": ("引用: @{0}", "Quote @{0}"),
+    "m_yes_del": ("はい(削除)", "Yes (delete)"),
+    "m_no": ("いいえ", "No"),
+    "confirm_del_tweet": ("このツイートを削除しますか?", "Delete this tweet?"),
+    "confirm_del_dm": ("このDMを削除しますか?(自分側のみ)", "Delete this DM? (your side only)"),
+    "media_count": ("メディア {0}件  (Esc で閉じる)", "{0} media  (Esc to close)"),
+    "preview_loading": ("(プレビュー読込中...)", "(loading preview...)"),
+    "no_media": ("このツイートにメディアはありません", "No media in this tweet"),
+    # スプラッシュ
+    "logo_sub": ("非公式 X クライアント  —  起動中...", "Unofficial X client  —  starting..."),
+    # ステータス
+    "status_start": ("起動中...", "Starting..."),
+    "auth_err": ("認証エラー: {0}", "Auth error: {0}"),
+    "loading_following": ("フォロー中を取得中...", "Loading Following..."),
+    "searching": ("検索中: {0} [{1}]", "Searching: {0} [{1}]"),
+    "search_done": ("検索 '{0}' [{1}] {2}件", "Search '{0}' [{1}] {2} results"),
+    "me_loading": ("自分の情報取得中です", "Loading your info..."),
+    # プロフィール
+    "prof_loading": ("読み込み中...", "Loading..."),
+    "prof_stats": ("フォロワー{0} / フォロー{1}", "{0} followers / {1} following"),
+    "btn_follow": ("フォロー", "Follow"),
+    "btn_following": ("フォロー中(解除)", "Following (unfollow)"),
+    "btn_mute": ("ミュート", "Mute"),
+    "btn_unmute": ("ミュート解除", "Unmute"),
+    "btn_block": ("ブロック", "Block"),
+    "btn_unblock": ("ブロック解除", "Unblock"),
+    # 会話
+    "conv_loading": ("会話を読み込み中...", "Loading conversation..."),
+    "conv_header": ("会話・リプライ({0}件)  Esc で戻る", "Conversation & replies ({0})  Esc to go back"),
+    "conv_fail": ("取得失敗: {0}", "Failed: {0}"),
+    # 通知トースト
+    "n_like": ("いいね", "Like"),
+    "n_unlike": ("いいね解除", "Unlike"),
+    "n_rt": ("RT", "Retweet"),
+    "n_unrt": ("RT解除", "Un-retweet"),
+    "n_bookmark": ("ブクマ", "Bookmark"),
+    "n_unbookmark": ("ブクマ解除", "Un-bookmark"),
+    "n_ok": ("{0} OK", "{0} OK"),
+    "n_fail": ("{0}失敗: {1}", "{0} failed: {1}"),
+    "posted": ("投稿しました: {0}", "Posted: {0}"),
+    "post_unknown": ("投稿応答不明", "Post response unclear"),
+    "post_fail": ("投稿失敗: {0}", "Post failed: {0}"),
+    "deleted": ("削除しました", "Deleted"),
+    "delete_fail": ("削除失敗: {0}", "Delete failed: {0}"),
+    "dm_sent": ("DM送信しました", "DM sent"),
+    "dm_send_fail": ("DM送信失敗: {0}", "DM send failed: {0}"),
+    "dm_deleted": ("DMを削除しました", "DM deleted"),
+    "dm_delete_fail": ("DM削除失敗: {0}", "DM delete failed: {0}"),
+    "rel_done": ("{0}しました", "{0} done"),
+    "rel_fail": ("失敗: {0}", "Failed: {0}"),
+    "rel_follow": ("フォロー", "Follow"),
+    "rel_unfollow": ("フォロー解除", "Unfollow"),
+    "rel_mute": ("ミュート", "Mute"),
+    "rel_unmute": ("ミュート解除", "Unmute"),
+    "rel_block": ("ブロック", "Block"),
+    "rel_unblock": ("ブロック解除", "Unblock"),
+    # バインド説明
+    "bind_quit": ("終了", "Quit"),
+    "bind_refresh": ("更新", "Refresh"),
+    "bind_back": ("戻る", "Back"),
+    "bind_skip": ("スキップ", "Skip"),
+    "bind_close": ("閉じる", "Close"),
+    "bind_cancel": ("キャンセル", "Cancel"),
+    "bind_send": ("送信", "Send"),
+}
+
+
+def set_lang(lang: str) -> None:
+    global _LANG
+    _LANG = "en" if lang == "en" else "ja"
+
+
+def tr(key: str, *args) -> str:
+    ja, en = STRINGS.get(key, (key, key))
+    s = en if _LANG == "en" else ja
+    return s.format(*args) if args else s
+
+
 class LogoScreen(ModalScreen):
     """起動スプラッシュ。数秒 or キー入力で消える。"""
 
@@ -61,7 +180,7 @@ class LogoScreen(ModalScreen):
     def compose(self) -> ComposeResult:
         with Vertical(id="logo-box"):
             yield Static(LOGO, id="logo-art")
-            yield Static("非公式 X クライアント  —  起動中...", id="logo-sub")
+            yield Static(tr("logo_sub"), id="logo-sub")
 
     _closed = False
 
@@ -92,19 +211,19 @@ class TweetItem(ListItem):
         yield Static(self._body())
         with Horizontal(classes="tw-actions"):
             actions = [
-                ("♥ いいね", "like"),
-                ("RT", "retweet"),
-                ("★ ブクマ", "bookmark"),
-                ("↩ 返信", "reply"),
-                ("❞ 引用", "quote"),
-                ("💬 会話", "conversation"),
+                (tr("b_like"), "like"),
+                (tr("b_rt"), "retweet"),
+                (tr("b_bookmark"), "bookmark"),
+                (tr("b_reply"), "reply"),
+                (tr("b_quote"), "quote"),
+                (tr("b_thread"), "conversation"),
             ]
             if self.tweet.get("quoted"):
-                actions.append(("❝ 引用元", "quoted"))
+                actions.append((tr("b_quoted"), "quoted"))
             if self.tweet.get("media"):
-                actions.append(("画像/動画", "media"))
+                actions.append((tr("b_media"), "media"))
             if self.deletable:
-                actions.append(("🗑 削除", "delete"))
+                actions.append((tr("b_delete"), "delete"))
             for label, action in actions:
                 btn = Button(label, classes="tw-btn")
                 btn.tw_action = action
@@ -161,7 +280,7 @@ class DMMsgItem(ListItem):
     def compose(self) -> ComposeResult:
         yield Static(self._text)
         with Horizontal(classes="tw-actions"):
-            btn = Button("🗑 削除", classes="dm-del-btn")
+            btn = Button(tr("b_delete"), classes="dm-del-btn")
             btn.can_focus = False
             yield btn
 
@@ -180,8 +299,8 @@ class ComposeModal(ModalScreen):
             yield Label(self._title, id="compose-title")
             yield TextArea(self._prefill, id="compose-input")
             with Horizontal(id="compose-buttons"):
-                yield Button("送信 (Ctrl+S)", variant="primary", id="send")
-                yield Button("キャンセル", id="cancel")
+                yield Button(tr("m_send"), variant="primary", id="send")
+                yield Button(tr("m_cancel"), id="cancel")
 
     def on_mount(self) -> None:
         self.query_one("#compose-input", TextArea).focus()
@@ -210,11 +329,11 @@ class MediaModal(ModalScreen):
 
     def compose(self) -> ComposeResult:
         with VerticalScroll(id="media-box"):
-            yield Label(f"メディア {len(self.tweet['media'])}件  (Esc で閉じる)")
+            yield Label(tr("media_count", len(self.tweet["media"])))
             for i, m in enumerate(self.tweet["media"]):
                 yield Static(f"[{i}] [b]{m['type']}[/b]: {m['url']}")
                 if m["type"] == "photo":
-                    yield Static("(プレビュー読込中...)", id=f"prev-{i}")
+                    yield Static(tr("preview_loading"), id=f"prev-{i}")
 
     def on_mount(self) -> None:
         self.load_previews()
@@ -264,8 +383,8 @@ class ConfirmModal(ModalScreen[bool]):
         with Vertical(id="confirm-box"):
             yield Label(self._message)
             with Horizontal(id="confirm-buttons"):
-                yield Button("はい(削除)", variant="error", id="yes")
-                yield Button("いいえ", id="no")
+                yield Button(tr("m_yes_del"), variant="error", id="yes")
+                yield Button(tr("m_no"), id="no")
 
     @on(Button.Pressed, "#yes")
     def _yes(self) -> None:
@@ -311,23 +430,23 @@ class TweetActions:
     def _do_like(self, item: TweetItem) -> None:
         t = item.tweet
         if t.get("favorited"):
-            self._toggle(item, self.app.client.unlike, "favorited", "likes", -1, "いいね解除")
+            self._toggle(item, self.app.client.unlike, "favorited", "likes", -1, tr("n_unlike"))
         else:
-            self._toggle(item, self.app.client.like, "favorited", "likes", +1, "いいね")
+            self._toggle(item, self.app.client.like, "favorited", "likes", +1, tr("n_like"))
 
     def _do_retweet(self, item: TweetItem) -> None:
         t = item.tweet
         if t.get("retweeted"):
-            self._toggle(item, self.app.client.unretweet, "retweeted", "retweets", -1, "RT解除")
+            self._toggle(item, self.app.client.unretweet, "retweeted", "retweets", -1, tr("n_unrt"))
         else:
-            self._toggle(item, self.app.client.retweet, "retweeted", "retweets", +1, "RT")
+            self._toggle(item, self.app.client.retweet, "retweeted", "retweets", +1, tr("n_rt"))
 
     def _do_bookmark(self, item: TweetItem) -> None:
         t = item.tweet
         if t.get("bookmarked"):
-            self._toggle(item, self.app.client.unbookmark, "bookmarked", None, 0, "ブクマ解除")
+            self._toggle(item, self.app.client.unbookmark, "bookmarked", None, 0, tr("n_unbookmark"))
         else:
-            self._toggle(item, self.app.client.bookmark, "bookmarked", None, 0, "ブクマ")
+            self._toggle(item, self.app.client.bookmark, "bookmarked", None, 0, tr("n_bookmark"))
 
     def _do_reply(self, item: TweetItem) -> None:
         t = item.tweet
@@ -336,7 +455,7 @@ class TweetActions:
             if text:
                 self.app.post_tweet(text, reply_to=t["id"])
 
-        self.app.push_screen(ComposeModal(f"@{t['handle']} へ返信"), after)
+        self.app.push_screen(ComposeModal(tr("m_reply_to", t["handle"])), after)
 
     def action_like(self) -> None:
         item = self.current_tweet_item()
@@ -365,7 +484,7 @@ class TweetActions:
             if text:
                 self.app.post_tweet(text, quote_url=url)
 
-        self.app.push_screen(ComposeModal(f"引用: @{t['handle']}"), after)
+        self.app.push_screen(ComposeModal(tr("m_quote", t["handle"])), after)
 
     def _do_conversation(self, item: TweetItem) -> None:
         self.app.open_conversation(item.tweet["id"])
@@ -380,16 +499,16 @@ class TweetActions:
             if ok:
                 self._delete_tweet_worker(item)
 
-        self.app.push_screen(ConfirmModal("このツイートを削除しますか?"), cb)
+        self.app.push_screen(ConfirmModal(tr("confirm_del_tweet")), cb)
 
     @work(thread=True, group="del")
     def _delete_tweet_worker(self, item: TweetItem) -> None:
         try:
             self.app.client.delete_tweet(item.tweet["id"])
-            self.app.call_from_thread(self.notify, "削除しました")
+            self.app.call_from_thread(self.notify, tr("deleted"))
             self.app.call_from_thread(item.remove)
         except Exception as exc:  # noqa: BLE001
-            self.app.call_from_thread(self.notify, f"削除失敗: {exc}", severity="error")
+            self.app.call_from_thread(self.notify, tr("delete_fail", exc), severity="error")
 
     def action_open_profile(self, handle: str) -> None:
         """ツイート名クリック(action link)から著者プロフィールを開く。"""
@@ -423,10 +542,10 @@ class TweetActions:
             if count_field:
                 t[count_field] = max(0, t.get(count_field, 0) + delta)
             self.app.call_from_thread(item.refresh_render)
-            self.app.call_from_thread(self.notify, f"{verb} OK")
+            self.app.call_from_thread(self.notify, tr("n_ok", verb))
         except Exception as exc:  # noqa: BLE001
             self.app.call_from_thread(
-                self.notify, f"{verb}失敗: {exc}", severity="error"
+                self.notify, tr("n_fail", verb, exc), severity="error"
             )
 
     def action_media(self) -> None:
@@ -465,19 +584,19 @@ class ProfileScreen(TweetActions, Screen):
 
     def compose(self) -> ComposeResult:
         yield Header()
-        yield Static("読み込み中...", id="profile-header")
+        yield Static(tr("prof_loading"), id="profile-header")
         with Horizontal(id="profile-actions"):
             if not self.is_self:
-                yield Button("フォロー", variant="primary", id="btn-follow")
-                yield Button("ミュート", id="btn-mute")
-                yield Button("ブロック", id="btn-block")
+                yield Button(tr("btn_follow"), variant="primary", id="btn-follow")
+                yield Button(tr("btn_mute"), id="btn-mute")
+                yield Button(tr("btn_block"), id="btn-block")
         with TabbedContent(id="profile-tabs"):
-            with TabPane("ツイート", id="p-tweets"):
+            with TabPane(tr("tab_tweets"), id="p-tweets"):
                 yield ListView(id="p-tweets-list")
             if self.is_self:
-                with TabPane("いいね", id="p-likes"):
+                with TabPane(tr("tab_likes"), id="p-likes"):
                     yield ListView(id="p-likes-list")
-                with TabPane("ブクマ", id="p-bm"):
+                with TabPane(tr("tab_bm"), id="p-bm"):
                     yield ListView(id="p-bm-list")
         yield Footer()
 
@@ -498,9 +617,9 @@ class ProfileScreen(TweetActions, Screen):
         name = legacy.get("name") or core.get("name", "")
         header = (
             f"[b]{escape(name)}[/b]  @{self.handle}  "
-            f"フォロワー{legacy.get('followers_count','?')} / "
-            f"フォロー{legacy.get('friends_count','?')}\n"
-            f"{escape(legacy.get('description',''))}"
+            + tr("prof_stats", legacy.get("followers_count", "?"),
+                 legacy.get("friends_count", "?"))
+            + f"\n{escape(legacy.get('description',''))}"
         )
         self.app.call_from_thread(
             self.query_one("#profile-header", Static).update, header
@@ -532,10 +651,10 @@ class ProfileScreen(TweetActions, Screen):
             except Exception:  # noqa: BLE001
                 pass
 
-        setlabel("#btn-follow", "フォロー中(解除)" if self.following else "フォロー",
+        setlabel("#btn-follow", tr("btn_following") if self.following else tr("btn_follow"),
                  "default" if self.following else "primary")
-        setlabel("#btn-mute", "ミュート解除" if self.muting else "ミュート", "default")
-        setlabel("#btn-block", "ブロック解除" if self.blocking else "ブロック",
+        setlabel("#btn-mute", tr("btn_unmute") if self.muting else tr("btn_mute"), "default")
+        setlabel("#btn-block", tr("btn_unblock") if self.blocking else tr("btn_block"),
                  "error" if not self.blocking else "default")
 
     def current_tweet_item(self) -> TweetItem | None:
@@ -577,19 +696,19 @@ class ProfileScreen(TweetActions, Screen):
             if kind == "follow":
                 (c.unfollow if self.following else c.follow)(self.uid)
                 self.following = not self.following
-                msg = "フォロー解除" if not self.following else "フォロー"
+                msg = tr("rel_unfollow") if not self.following else tr("rel_follow")
             elif kind == "mute":
                 (c.unmute if self.muting else c.mute)(self.uid)
                 self.muting = not self.muting
-                msg = "ミュート解除" if not self.muting else "ミュート"
+                msg = tr("rel_unmute") if not self.muting else tr("rel_mute")
             else:  # block
                 (c.unblock if self.blocking else c.block)(self.uid)
                 self.blocking = not self.blocking
-                msg = "ブロック解除" if not self.blocking else "ブロック"
-            self.app.call_from_thread(self.notify, f"{msg}しました")
+                msg = tr("rel_unblock") if not self.blocking else tr("rel_block")
+            self.app.call_from_thread(self.notify, tr("rel_done", msg))
             self.app.call_from_thread(self._update_action_btns)
         except Exception as exc:  # noqa: BLE001
-            self.app.call_from_thread(self.notify, f"失敗: {exc}", severity="error")
+            self.app.call_from_thread(self.notify, tr("rel_fail", exc), severity="error")
 
 
 # ---- 会話スレッド画面 --------------------------------------------------
@@ -602,7 +721,7 @@ class ConversationScreen(TweetActions, Screen):
 
     def compose(self) -> ComposeResult:
         yield Header()
-        yield Static("会話を読み込み中...", id="conv-header")
+        yield Static(tr("conv_loading"), id="conv-header")
         yield ListView(id="conv-list")
         yield Footer()
 
@@ -615,14 +734,14 @@ class ConversationScreen(TweetActions, Screen):
             data = self.app.client.tweet_detail(self.tweet_id)
         except Exception as exc:  # noqa: BLE001
             self.app.call_from_thread(
-                self.query_one("#conv-header", Static).update, f"取得失敗: {exc}"
+                self.query_one("#conv-header", Static).update, tr("conv_fail", exc)
             )
             return
         tweets = commands.extract_tweets(data)[:50]
         self.app.call_from_thread(self._fill, tweets)
         self.app.call_from_thread(
             self.query_one("#conv-header", Static).update,
-            f"会話・リプライ({len(tweets)}件)  Esc で戻る",
+            tr("conv_header", len(tweets)),
         )
 
     def _fill(self, tweets: list[dict]) -> None:
@@ -689,42 +808,42 @@ class XcliApp(TweetActions, App):
     def compose(self) -> ComposeResult:
         yield Header()
         with Horizontal(id="topbar"):
-            yield Button("自分のプロフィール", id="btn-me")
-            yield Input(placeholder="いまどうしてる?  (Enter で投稿)", id="tl-compose")
+            yield Button(tr("my_profile"), id="btn-me")
+            yield Input(placeholder=tr("compose_ph"), id="tl-compose")
         with TabbedContent(initial="following"):
-            with TabPane("フォロー中", id="following"):
+            with TabPane(tr("tab_following"), id="following"):
                 yield ListView(id="following-list")
-            with TabPane("おすすめ", id="foryou"):
+            with TabPane(tr("tab_foryou"), id="foryou"):
                 yield ListView(id="foryou-list")
-            with TabPane("検索", id="search"):
+            with TabPane(tr("tab_search"), id="search"):
                 with Horizontal(id="search-controls"):
-                    yield Input(placeholder="検索クエリ (Enter)", id="search-input")
+                    yield Input(placeholder=tr("search_ph"), id="search-input")
                     yield Select(
                         [
-                            ("最新", "latest"),
-                            ("人気", "top"),
-                            ("アカウント", "people"),
-                            ("メディア", "media"),
-                            ("リスト", "lists"),
+                            (tr("opt_latest"), "latest"),
+                            (tr("opt_top"), "top"),
+                            (tr("opt_people"), "people"),
+                            (tr("opt_media"), "media"),
+                            (tr("opt_lists"), "lists"),
                         ],
                         value="latest",
                         allow_blank=False,
                         id="search-product",
                     )
                 with Horizontal(id="search-adv"):
-                    yield Input(placeholder="from: ユーザー(@なし)", id="search-from")
-                    yield Input(placeholder="最低いいね数", id="search-minfav")
-                    yield Button("検索", variant="primary", id="search-go")
+                    yield Input(placeholder=tr("from_ph"), id="search-from")
+                    yield Input(placeholder=tr("minfav_ph"), id="search-minfav")
+                    yield Button(tr("search_btn"), variant="primary", id="search-go")
                 yield ListView(id="search-list")
-            with TabPane("通知", id="notif"):
+            with TabPane(tr("tab_notif"), id="notif"):
                 yield ListView(id="notif-list")
-            with TabPane("DM", id="dm"):
+            with TabPane(tr("tab_dm"), id="dm"):
                 with Horizontal():
                     yield ListView(id="dm-conv-list")
                     yield ListView(id="dm-msg-list")
                 with Horizontal(id="dm-send-row"):
-                    yield Input(placeholder="メッセージ (Enter で送信)", id="dm-input")
-        yield Static("起動中...", id="status")
+                    yield Input(placeholder=tr("dm_msg_ph"), id="dm-input")
+        yield Static(tr("status_start"), id="status")
         yield Footer()
 
     def on_mount(self) -> None:
@@ -734,7 +853,7 @@ class XcliApp(TweetActions, App):
         try:
             self.client = XClient()
         except Exception as exc:  # noqa: BLE001
-            self._status(f"認証エラー: {exc}")
+            self._status(tr("auth_err", exc))
             return
         self.init_me()
         self.load_following()
@@ -814,7 +933,7 @@ class XcliApp(TweetActions, App):
             st["loading"] = False
 
     def load_following(self) -> None:
-        self._status("フォロー中を取得中...")
+        self._status(tr("loading_following"))
         self._load_feed(
             "#following-list",
             lambda cur: self.client.home_timeline(count=30, cursor=cur, latest=True),
@@ -881,7 +1000,7 @@ class XcliApp(TweetActions, App):
             "top": "Top", "latest": "Latest", "people": "People",
             "media": "Media", "lists": "Lists",
         }
-        self._status(f"検索中: {query} [{product}]")
+        self._status(tr("searching", query, product))
         if product in ("people", "lists"):
             self._feeds.pop("#search-list", None)  # 追加読み込み無効
             self._run_search_other(query, prod_map[product], product)
@@ -912,7 +1031,7 @@ class XcliApp(TweetActions, App):
                 for x in items
             ]
         self.app.call_from_thread(self._fill_simple, "#search-list", rows)
-        self.app.call_from_thread(self._status, f"検索 '{query}' [{kind}] {len(items)}件")
+        self.app.call_from_thread(self._status, tr("search_done", query, kind, len(items)))
 
     @on(ListView.Highlighted)
     def _on_highlight(self, ev: ListView.Highlighted) -> None:
@@ -971,7 +1090,7 @@ class XcliApp(TweetActions, App):
         if self.me:
             self.open_profile(self.me)
         else:
-            self.notify("自分の情報取得中です")
+            self.notify(tr("me_loading"))
 
     @on(Button.Pressed, ".dm-del-btn")
     def _on_dm_del(self, ev: Button.Pressed) -> None:
@@ -986,7 +1105,7 @@ class XcliApp(TweetActions, App):
             if ok:
                 self._dm_delete(node)
 
-        self.push_screen(ConfirmModal("このDMを削除しますか?(自分側のみ)"), cb)
+        self.push_screen(ConfirmModal(tr("confirm_del_dm")), cb)
 
     # ---- アクション ----------------------------------------------------
     def action_refresh(self) -> None:
@@ -1008,31 +1127,32 @@ class XcliApp(TweetActions, App):
             )
             tid = commands._created_tweet_id(data)
             self.app.call_from_thread(
-                self.notify, f"投稿しました: {tid}" if tid else "投稿応答不明"
+                self.notify, tr("posted", tid) if tid else tr("post_unknown")
             )
             self.app.call_from_thread(self.load_following)
         except Exception as exc:  # noqa: BLE001
-            self.app.call_from_thread(self.notify, f"投稿失敗: {exc}", severity="error")
+            self.app.call_from_thread(self.notify, tr("post_fail", exc), severity="error")
 
     @work(thread=True, group="dmsend")
     def send_dm(self, recipient_id: str, text: str, conv_id: str) -> None:
         try:
             self.client.dm_send(recipient_id, text)
-            self.app.call_from_thread(self.notify, "DM送信しました")
+            self.app.call_from_thread(self.notify, tr("dm_sent"))
             self.app.call_from_thread(self.load_dm_messages, conv_id)
         except Exception as exc:  # noqa: BLE001
-            self.app.call_from_thread(self.notify, f"DM送信失敗: {exc}", severity="error")
+            self.app.call_from_thread(self.notify, tr("dm_send_fail", exc), severity="error")
 
     @work(thread=True, group="dmdel")
     def _dm_delete(self, item: DMMsgItem) -> None:
         try:
             self.client.dm_delete_message(item.msg_id)
-            self.app.call_from_thread(self.notify, "DMを削除しました")
+            self.app.call_from_thread(self.notify, tr("dm_deleted"))
             self.app.call_from_thread(item.remove)
         except Exception as exc:  # noqa: BLE001
-            self.app.call_from_thread(self.notify, f"DM削除失敗: {exc}", severity="error")
+            self.app.call_from_thread(self.notify, tr("dm_delete_fail", exc), severity="error")
 
 
-def run() -> int:
+def run(lang: str = "ja") -> int:
+    set_lang(lang)
     XcliApp().run()
     return 0
