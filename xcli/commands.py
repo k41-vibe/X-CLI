@@ -871,7 +871,12 @@ def cmd_tui(args) -> int:
     from . import tui
 
     lang = "en" if getattr(args, "en", False) else getattr(args, "lang", "ja")
-    return tui.run(lang)
+    show_images: bool | None = None
+    if getattr(args, "images", False):
+        show_images = True
+    elif getattr(args, "no_images", False):
+        show_images = False
+    return tui.run(lang, show_images)
 
 
 def cmd_sync(args) -> int:

@@ -33,6 +33,10 @@ app calls. No developer account, no official API keys.
 - Inline image previews, quote boxes, infinite scroll, confirm dialogs
 - Startup splash logo
 - **English or Japanese UI**: `xcli tui --en` (default is Japanese)
+- Responsive: action buttons scroll horizontally on narrow (mobile) terminals;
+  inline photo thumbnails scale to the terminal width
+- Inline images are optional (off by default): `xcli config --images on`, or
+  `xcli tui --images` / `--no-images` per launch
 
 ## How it works
 

@@ -13,7 +13,7 @@ from rich.markup import escape
 
 from textual import on, work
 from textual.app import App, ComposeResult
-from textual.containers import Horizontal, Vertical, VerticalScroll
+from textual.containers import Horizontal, HorizontalScroll, Vertical, VerticalScroll
 from textual.screen import ModalScreen, Screen
 from textual.widgets import (
     Button,
@@ -161,9 +161,17 @@ STRINGS: dict[str, tuple[str, str]] = {
 }
 
 
+_SHOW_IMAGES = False
+
+
 def set_lang(lang: str) -> None:
     global _LANG
     _LANG = "en" if lang == "en" else "ja"
+
+
+def set_show_images(on: bool) -> None:
+    global _SHOW_IMAGES
+    _SHOW_IMAGES = bool(on)
 
 
 def tr(key: str, *args) -> str:
@@ -209,9 +217,11 @@ class TweetItem(ListItem):
 
     def compose(self) -> ComposeResult:
         yield Static(self._body())
-        if any(m["type"] == "photo" for m in (self.tweet.get("media") or [])):
+        if _SHOW_IMAGES and any(
+            m["type"] == "photo" for m in (self.tweet.get("media") or [])
+        ):
             yield Static("", classes="tw-img")
-        with Horizontal(classes="tw-actions"):
+        with HorizontalScroll(classes="tw-actions"):
             actions = [
                 (tr("b_like"), "like"),
                 (tr("b_rt"), "retweet"),
@@ -261,12 +271,16 @@ class TweetItem(ListItem):
         self.query(Static).first().update(self._body())
 
     def on_mount(self) -> None:
+        if not _SHOW_IMAGES:
+            return
         photos = [m for m in (self.tweet.get("media") or []) if m["type"] == "photo"]
         if photos:
-            self._load_img(photos[0]["url"])
+            # 端末幅に合わせてサムネイル上限を決める(はみ出し防止)
+            w = max(16, min(self.app.size.width - 6, 56))
+            self._load_img(photos[0]["url"], w)
 
     @work(thread=True, group="tw-img")
-    def _load_img(self, url: str) -> None:
+    def _load_img(self, url: str, box: int) -> None:
         import io
 
         try:
@@ -278,7 +292,7 @@ class TweetItem(ListItem):
             if not data:
                 return
             img = Image.open(io.BytesIO(data)).convert("RGB")
-            img.thumbnail((48, 24))
+            img.thumbnail((box, box))
             px = Pixels.from_image(img)
             self.app.call_from_thread(self._set_img, px)
         except Exception:  # noqa: BLE001
@@ -311,7 +325,7 @@ class DMMsgItem(ListItem):
 
     def compose(self) -> ComposeResult:
         yield Static(self._text)
-        with Horizontal(classes="tw-actions"):
+        with HorizontalScroll(classes="tw-actions"):
             btn = Button(tr("b_delete"), classes="dm-del-btn")
             btn.can_focus = False
             yield btn
@@ -799,8 +813,8 @@ class XcliApp(TweetActions, App):
     ListView { height: 1fr; border: round $primary; }
     TweetItem { padding: 1 1; height: auto; border-bottom: solid $primary-darken-2; }
     SimpleItem { padding: 0 1; height: auto; border-bottom: dashed $primary-darken-3; }
-    .tw-img { height: auto; margin: 1 0 0 2; }
-    .tw-actions { height: auto; margin-top: 1; }
+    .tw-img { height: auto; max-width: 100%; margin: 1 0 0 2; }
+    .tw-actions { height: auto; margin-top: 1; overflow-x: auto; overflow-y: hidden; scrollbar-size-horizontal: 1; }
     .tw-btn { height: 1; min-width: 8; margin-right: 2; border: none; background: $boost; color: $text; }
     .tw-btn:hover { background: $primary; }
     .dm-del-btn { height: 1; min-width: 8; border: none; background: $error 40%; color: $text; }
@@ -1185,7 +1199,12 @@ class XcliApp(TweetActions, App):
             self.app.call_from_thread(self.notify, tr("dm_delete_fail", exc), severity="error")
 
 
-def run(lang: str = "ja") -> int:
+def run(lang: str = "ja", show_images: bool | None = None) -> int:
     set_lang(lang)
+    if show_images is None:  # config の show_images を既定に
+        from . import config
+
+        show_images = config.load_config().get("show_images", False)
+    set_show_images(show_images)
     XcliApp().run()
     return 0
