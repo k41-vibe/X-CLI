@@ -209,6 +209,8 @@ class TweetItem(ListItem):
 
     def compose(self) -> ComposeResult:
         yield Static(self._body())
+        if any(m["type"] == "photo" for m in (self.tweet.get("media") or [])):
+            yield Static("", classes="tw-img")
         with Horizontal(classes="tw-actions"):
             actions = [
                 (tr("b_like"), "like"),
@@ -256,7 +258,37 @@ class TweetItem(ListItem):
         return f"{body}\n{meta}"
 
     def refresh_render(self) -> None:
-        self.query_one(Static).update(self._body())
+        self.query(Static).first().update(self._body())
+
+    def on_mount(self) -> None:
+        photos = [m for m in (self.tweet.get("media") or []) if m["type"] == "photo"]
+        if photos:
+            self._load_img(photos[0]["url"])
+
+    @work(thread=True, group="tw-img")
+    def _load_img(self, url: str) -> None:
+        import io
+
+        try:
+            from PIL import Image
+            from rich_pixels import Pixels
+
+            ua = self.app.client.cfg["user_agent"]
+            data = imaging.fetch_image(url, ua)
+            if not data:
+                return
+            img = Image.open(io.BytesIO(data)).convert("RGB")
+            img.thumbnail((48, 24))
+            px = Pixels.from_image(img)
+            self.app.call_from_thread(self._set_img, px)
+        except Exception:  # noqa: BLE001
+            pass
+
+    def _set_img(self, px) -> None:
+        try:
+            self.query_one(".tw-img", Static).update(px)
+        except Exception:  # noqa: BLE001
+            pass
 
 
 class SimpleItem(ListItem):
@@ -767,6 +799,7 @@ class XcliApp(TweetActions, App):
     ListView { height: 1fr; border: round $primary; }
     TweetItem { padding: 1 1; height: auto; border-bottom: solid $primary-darken-2; }
     SimpleItem { padding: 0 1; height: auto; border-bottom: dashed $primary-darken-3; }
+    .tw-img { height: auto; margin: 1 0 0 2; }
     .tw-actions { height: auto; margin-top: 1; }
     .tw-btn { height: 1; min-width: 8; margin-right: 2; border: none; background: $boost; color: $text; }
     .tw-btn:hover { background: $primary; }
