@@ -16,15 +16,20 @@ from x_client_transaction.utils import generate_headers, get_ondemand_file_url
 
 
 class TransactionGenerator:
-    def __init__(self, user_agent: str | None = None):
+    def __init__(self, user_agent: str | None = None, cookies: dict | None = None):
         self._ct: ClientTransaction | None = None
         self._user_agent = user_agent
+        self._cookies = cookies or {}
 
     def _init(self) -> ClientTransaction:
         session = requests.Session()
         session.headers = generate_headers()
         if self._user_agent:
             session.headers["User-Agent"] = self._user_agent
+        # 2026-10: 未ログインの x.com/home は新形式(x-web)で ondemand.s を含まない。
+        # ログイン済み Cookie を付けると従来形式のページが返る。
+        for k, v in self._cookies.items():
+            session.cookies.set(k, v, domain=".x.com")
 
         home = session.get("https://x.com/home", timeout=20)
         home_soup = bs4.BeautifulSoup(home.content, "html.parser")

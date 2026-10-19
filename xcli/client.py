@@ -44,7 +44,10 @@ class XClient:
         self.session.headers.update(self._base_headers())
         self.session.cookies.set("auth_token", self.cfg["auth_token"], domain=".x.com")
         self.session.cookies.set("ct0", self.cfg["ct0"], domain=".x.com")
-        self._txgen = TransactionGenerator(user_agent=self.cfg["user_agent"])
+        self._txgen = TransactionGenerator(
+            user_agent=self.cfg["user_agent"],
+            cookies={"auth_token": self.cfg["auth_token"], "ct0": self.cfg["ct0"]},
+        )
         self._last_request = 0.0
 
     # ---- ヘッダ ----------------------------------------------------------
